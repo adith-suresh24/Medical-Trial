@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Hospital Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <div class="sidebar-overlay"></div>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">🏥</div>
+                <div class="brand-text">
+                    <h2>Hospital HMS</h2>
+                    <small>Management System</small>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Main</div>
+                    <a href="dashboard.html" class="nav-item active">
+                        <span class="nav-icon">📊</span> Dashboard
+                    </a>
+                    <a href="patients.html" class="nav-item">
+                        <span class="nav-icon">👥</span> Patients
+                    </a>
+                    <a href="reports.html" class="nav-item">
+                        <span class="nav-icon">📋</span> Reports
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Clinical</div>
+                    <a href="diagnosis.html" class="nav-item">
+                        <span class="nav-icon">🔬</span> Diagnosis
+                    </a>
+                    <a href="discharge.html" class="nav-item">
+                        <span class="nav-icon">📄</span> Discharge
+                    </a>
+                    <a href="history.html" class="nav-item">
+                        <span class="nav-icon">📚</span> History
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">System</div>
+                    <a href="logs.html" class="nav-item">
+                        <span class="nav-icon">📝</span> Access Logs
+                    </a>
+                    <a href="settings.html" class="nav-item">
+                        <span class="nav-icon">⚙️</span> Settings
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="hamburger">☰</button>
+                    <div class="header-search">
+                        <span>🔍</span>
+                        <input type="text" placeholder="Search patients, reports..." id="globalSearch">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="user-menu" onclick="logout()">
+                        <div class="user-avatar">SA</div>
+                        <div class="user-info">
+                            <strong>Loading...</strong>
+                            <small>Loading...</small>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="page-header">
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p>Welcome back! Here's your hospital overview.</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" onclick="window.location.href='patients.html'">
+                            + Add Patient
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--primary-light); color: var(--primary);">👥</div>
+                        <div class="stat-value" id="totalPatients">0</div>
+                        <div class="stat-label">Total Patients</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e6f4ea; color: var(--success);">💚</div>
+                        <div class="stat-value" id="activePatients">0</div>
+                        <div class="stat-label">Active Patients</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fce8e6; color: var(--danger);">✅</div>
+                        <div class="stat-value" id="dischargedPatients">0</div>
+                        <div class="stat-label">Discharged</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fef7e0; color: var(--warning);">📅</div>
+                        <div class="stat-value" id="todayAdmissions">0</div>
+                        <div class="stat-label">Today's Admissions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e8f0fe; color: var(--info);">👨‍⚕️</div>
+                        <div class="stat-value" id="totalDoctors">0</div>
+                        <div class="stat-label">Doctors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fce8e6; color: var(--danger);">📋</div>
+                        <div class="stat-value" id="pendingReports">0</div>
+                        <div class="stat-label">Pending Reports</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>

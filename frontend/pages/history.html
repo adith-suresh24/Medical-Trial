@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient History - Hospital Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <div class="sidebar-overlay"></div>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header"><div class="logo">🏥</div><div class="brand-text"><h2>Hospital HMS</h2><small>Management System</small></div></div>
+            <nav class="sidebar-nav">
+                <div class="nav-section"><div class="nav-section-title">Main</div>
+                    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+                    <a href="patients.html" class="nav-item"><span class="nav-icon">👥</span> Patients</a>
+                    <a href="reports.html" class="nav-item"><span class="nav-icon">📋</span> Reports</a>
+                </div>
+                <div class="nav-section"><div class="nav-section-title">Clinical</div>
+                    <a href="diagnosis.html" class="nav-item"><span class="nav-icon">🔬</span> Diagnosis</a>
+                    <a href="discharge.html" class="nav-item"><span class="nav-icon">📄</span> Discharge</a>
+                    <a href="history.html" class="nav-item active"><span class="nav-icon">📚</span> History</a>
+                </div>
+                <div class="nav-section"><div class="nav-section-title">System</div>
+                    <a href="logs.html" class="nav-item"><span class="nav-icon">📝</span> Access Logs</a>
+                    <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left"><button class="hamburger">☰</button>
+                    <div class="header-search"><span>🔍</span><input type="text" placeholder="Search patient history..." id="globalSearch"></div>
+                </div>
+                <div class="header-right">
+                    <div class="user-menu" onclick="logout()">
+                        <div class="user-avatar">SA</div>
+                        <div class="user-info"><strong>Loading...</strong><small>Loading...</small></div>
+                    </div>
+                </div>
+            </header>
+            <div class="page-content">
+                <div class="page-header">
+                    <div><h1>📚 Patient History</h1><p>Comprehensive patient medical history timeline</p></div>
+                </div>
+                <div class="filters-bar">
+                    <input type="text" class="form-control" id="historySearch" placeholder="Search by patient name, ID..." style="min-width:300px">
+                    <button class="btn btn-primary" onclick="searchHistory()">🔍 Search</button>
+                </div>
+                <div id="historyResults"></div>
+            </div>
+        </main>
+    </div>
+    <div id="toastContainer" class="toast-container"></div>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/history.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Hospital Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <div class="sidebar-overlay"></div>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header"><div class="logo">🏥</div><div class="brand-text"><h2>Hospital HMS</h2><small>Management System</small></div></div>
+            <nav class="sidebar-nav">
+                <div class="nav-section"><div class="nav-section-title">Main</div>
+                    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+                    <a href="patients.html" class="nav-item"><span class="nav-icon">👥</span> Patients</a>
+                    <a href="reports.html" class="nav-item active"><span class="nav-icon">📋</span> Reports</a>
+                </div>
+                <div class="nav-section"><div class="nav-section-title">Clinical</div>
+                    <a href="diagnosis.html" class="nav-item"><span class="nav-icon">🔬</span> Diagnosis</a>
+                    <a href="discharge.html" class="nav-item"><span class="nav-icon">📄</span> Discharge</a>
+                    <a href="history.html" class="nav-item"><span class="nav-icon">📚</span> History</a>
+                </div>
+                <div class="nav-section"><div class="nav-section-title">System</div>
+                    <a href="logs.html" class="nav-item"><span class="nav-icon">📝</span> Access Logs</a>
+                    <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left"><button class="hamburger">☰</button>
+                    <div class="header-search"><span>🔍</span><input type="text" placeholder="Search reports..." id="globalSearch"></div>
+                </div>
+                <div class="header-right">
+                    <div class="user-menu" onclick="logout()">
+                        <div class="user-avatar">SA</div>
+                        <div class="user-info"><strong>Loading...</strong><small>Loading...</small></div>
+                    </div>
+                </div>
+            </header>
+            <div class="page-content">
+                <div class="page-header">
+                    <div><h1>Medical Reports</h1><p>Create and manage patient medical reports</p></div>
+                    <button class="btn btn-primary" onclick="openNewReport()">+ New Report</button>
+                </div>
+                <div class="filters-bar">
+                    <input type="text" class="form-control" id="searchReport" placeholder="Search symptoms, diagnosis..." style="min-width:250px">
+                    <button class="btn btn-primary btn-sm" onclick="loadReports()">🔍 Search</button>
+                </div>
+                <div class="card">
+                    <div class="table-container"><table><thead><tr><th>Date</th><th>Patient</th><th>Symptoms</th><th>Diagnosis</th><th>Doctor</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="reportsTable"></tbody></table>
+                    </div>
+                    <div id="reportsPagination" class="pagination"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Report Modal -->
+    <div class="modal-overlay" id="reportModal">
+        <div class="modal modal-lg">
+            <div class="modal-header"><h2 id="reportModalTitle">New Medical Report</h2><button class="modal-close" onclick="closeModal('reportModal')">&times;</button></div>
+            <div class="modal-body">
+                <form id="reportForm">
+                    <input type="hidden" id="editReportId">
+                    <div class="form-group">
+                        <label>Patient *</label>
+                        <select class="form-control" id="reportPatientId" required>
+                            <option value="">Select Patient</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Symptoms *</label>
+                        <textarea class="form-control" id="symptoms" rows="3" required placeholder="Describe patient symptoms"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Observations</label>
+                        <textarea class="form-control" id="observations" rows="3" placeholder="Clinical observations"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Doctor Notes</label>
+                        <textarea class="form-control" id="doctorNotes" rows="3" placeholder="Additional notes"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Diagnosis</label>
+                        <textarea class="form-control" id="diagnosis" rows="2" placeholder="Diagnosis"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Treatment</label>
+                        <textarea class="form-control" id="treatment" rows="3" placeholder="Treatment plan"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Prescribed Medications</label>
+                        <textarea class="form-control" id="medications" rows="2" placeholder="Medications prescribed"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Follow-up Date</label>
+                        <input type="datetime-local" class="form-control" id="followUpDate">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('reportModal')">Cancel</button>
+                <button class="btn btn-success" onclick="generateAISummary()">🤖 AI Summary</button>
+                <button class="btn btn-primary" onclick="saveReport()">Save Report</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Summary Modal -->
+    <div class="modal-overlay" id="aiSummaryModal">
+        <div class="modal">
+            <div class="modal-header"><h2>AI-Assisted Analysis</h2><button class="modal-close" onclick="closeModal('aiSummaryModal')">&times;</button></div>
+            <div class="modal-body">
+                <div id="aiSummaryContent">
+                    <div class="text-center" style="padding:40px">
+                        <div class="spinner" style="margin:0 auto"></div>
+                        <p class="mt-2">Analyzing patient data...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('aiSummaryModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/reports.js"></script>
+</body>
+</html>

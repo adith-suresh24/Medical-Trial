@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Detail - Hospital Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <div class="sidebar-overlay"></div>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header"><div class="logo">🏥</div><div class="brand-text"><h2>Hospital HMS</h2><small>Management System</small></div></div>
+            <nav class="sidebar-nav">
+                <div class="nav-section"><div class="nav-section-title">Main</div>
+                    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+                    <a href="patients.html" class="nav-item active"><span class="nav-icon">👥</span> Patients</a>
+                    <a href="reports.html" class="nav-item"><span class="nav-icon">📋</span> Reports</a>
+                </div>
+                <div class="nav-section"><div class="nav-section-title">Clinical</div>
+                    <a href="diagnosis.html" class="nav-item"><span class="nav-icon">🔬</span> Diagnosis</a>
+                    <a href="discharge.html" class="nav-item"><span class="nav-icon">📄</span> Discharge</a>
+                    <a href="history.html" class="nav-item"><span class="nav-icon">📚</span> History</a>
+                </div>
+                <div class="nav-section"><div class="nav-section-title">System</div>
+                    <a href="logs.html" class="nav-item"><span class="nav-icon">📝</span> Access Logs</a>
+                    <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left"><button class="hamburger">☰</button>
+                    <a href="patients.html" class="btn btn-sm btn-outline">← Back to Patients</a>
+                </div>
+                <div class="header-right">
+                    <div class="user-menu" onclick="logout()">
+                        <div class="user-avatar">SA</div>
+                        <div class="user-info"><strong>Loading...</strong><small>Loading...</small></div>
+                    </div>
+                </div>
+            </header>
+            <div class="page-content">
+                <div id="patientHeader" class="page-header">
+                    <div><h1 id="patientName">Loading...</h1><p id="patientId">Loading...</p></div>
+                    <div class="flex gap-2">
+                        <button class="btn btn-warning" onclick="editPatient()">✏️ Edit</button>
+                        <button class="btn btn-danger" onclick="deletePatient()">🗑️ Delete</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card"><h3>📋 Personal Info</h3><div id="personalInfo">Loading...</div></div>
+                    <div class="card"><h3>🏥 Admission Info</h3><div id="admissionInfo">Loading...</div></div>
+                </div>
+
+                <div class="card mt-2">
+                    <div class="section-header"><h2>📋 Medical Reports</h2><button class="btn btn-primary btn-sm" onclick="window.location.href='reports.html?patient_id=' + getPatientId()">+ New Report</button></div>
+                    <div id="patientReports" class="table-container"><p>Loading...</p></div>
+                </div>
+
+                <div class="card mt-2">
+                    <div class="section-header"><h2>🔬 Diagnosis History</h2></div>
+                    <div id="patientDiagnoses" class="table-container"><p>Loading...</p></div>
+                </div>
+
+                <div class="card mt-2">
+                    <div class="section-header"><h2>📄 Discharge Reports</h2></div>
+                    <div id="patientDischarges" class="table-container"><p>Loading...</p></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="toastContainer" class="toast-container"></div>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/patient-detail.js"></script>
+</body>
+</html>

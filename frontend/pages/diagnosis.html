@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnosis - Hospital Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <div class="sidebar-overlay"></div>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header"><div class="logo">🏥</div><div class="brand-text"><h2>Hospital HMS</h2><small>Management System</small></div></div>
+            <nav class="sidebar-nav">
+                <div class="nav-section"><div class="nav-section-title">Main</div>
+                    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+                    <a href="patients.html" class="nav-item"><span class="nav-icon">👥</span> Patients</a>
+                    <a href="reports.html" class="nav-item"><span class="nav-icon">📋</span> Reports</a>
+                </div>
+                <div class="nav-section"><div class="nav-section-title">Clinical</div>
+                    <a href="diagnosis.html" class="nav-item active"><span class="nav-icon">🔬</span> Diagnosis</a>
+                    <a href="discharge.html" class="nav-item"><span class="nav-icon">📄</span> Discharge</a>
+                    <a href="history.html" class="nav-item"><span class="nav-icon">📚</span> History</a>
+                </div>
+                <div class="nav-section"><div class="nav-section-title">System</div>
+                    <a href="logs.html" class="nav-item"><span class="nav-icon">📝</span> Access Logs</a>
+                    <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left"><button class="hamburger">☰</button>
+                    <div class="header-search"><span>🔍</span><input type="text" placeholder="Search diagnosis database..." id="globalSearch"></div>
+                </div>
+                <div class="header-right">
+                    <div class="user-menu" onclick="logout()">
+                        <div class="user-avatar">SA</div>
+                        <div class="user-info"><strong>Loading...</strong><small>Loading...</small></div>
+                    </div>
+                </div>
+            </header>
+            <div class="page-content">
+                <div class="page-header">
+                    <div><h1>🔬 Diagnosis Assistance</h1><p>Symptom matching and diagnosis database</p></div>
+                </div>
+
+                <div class="card mb-2">
+                    <h2 class="mb-2">🔍 Symptom Matcher</h2>
+                    <p style="color:var(--gray-500);margin-bottom:12px">Enter symptoms separated by commas to find matching conditions from the database.</p>
+                    <div class="flex gap-2" style="align-items:flex-start">
+                        <textarea class="form-control" id="symptomInput" rows="2" placeholder="e.g., fever, cough, headache, fatigue" style="flex:1"></textarea>
+                        <button class="btn btn-primary" onclick="matchSymptoms()">🔍 Match</button>
+                    </div>
+                    <div id="matchResults" class="mt-2"></div>
+                </div>
+
+                <div class="card">
+                    <div class="section-header">
+                        <h2>📚 Diagnosis Database</h2>
+                        <div class="flex gap-2">
+                            <input type="text" class="form-control" id="searchDB" placeholder="Search conditions..." style="width:250px">
+                            <select class="form-control" id="severityFilter" style="width:150px">
+                                <option value="">All Severity</option>
+                                <option value="mild">Mild</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="high">High</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                            <button class="btn btn-sm btn-primary" onclick="loadDiagnosisDB()">Search</button>
+                        </div>
+                    </div>
+                    <div class="table-container"><table><thead><tr><th>Condition</th><th>ICD Code</th><th>Severity</th><th>Symptoms</th><th>Actions</th></tr></thead>
+                        <tbody id="dbTable"></tbody></table>
+                    </div>
+                    <div id="dbPagination" class="pagination"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Condition Detail Modal -->
+    <div class="modal-overlay" id="conditionModal">
+        <div class="modal modal-lg">
+            <div class="modal-header"><h2 id="conditionModalTitle">Condition Details</h2><button class="modal-close" onclick="closeModal('conditionModal')">&times;</button></div>
+            <div class="modal-body" id="conditionDetailContent"></div>
+            <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('conditionModal')">Close</button></div>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/diagnosis.js"></script>
+</body>
+</html>
