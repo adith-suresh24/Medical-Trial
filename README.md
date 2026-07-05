@@ -284,6 +284,6 @@ Copy `.env.example` to `.env` and configure:
 
 [MIT License](LICENSE) - Copyright (c) 2026
 
----
-
-Built with ❤️ for modern healthcare infrastructure.
+----------------------------------------------------------------------------------------------------------------------
+## Bullshit
+im editing whole thing cuz itss too much and im lazy pull the index.html file in outisde that frontend project because u have to due to live server and all well i have no idea how much of so called feauter will work
